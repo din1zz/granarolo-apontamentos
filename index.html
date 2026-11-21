@@ -4323,7 +4323,9 @@ parse_Primary(n.content)}catch(l){}a="/EncryptionInfo";n=Qe.find(e,a);if(!n||!n.
         online: ['● Banco de dados conectado', 'Dados sincronizados em tempo real com o Supabase'],
         local: ['● Modo local', 'Supabase não configurado: os dados ficam apenas neste navegador'],
         erro: ['● Sem conexão', detail || 'Falha de comunicação com o banco'],
-        salvando: ['● Salvando...', 'Gravando no banco de dados']
+        salvando: ['● Salvando...', 'Gravando no banco de dados'],
+        login: ['● Aguardando login', 'Entre com seu usuário e senha'],
+        conectando: ['● Conectando...', 'Conectando ao banco de dados']
       };
       const [txt, title] = map[state] || map.local;
       el.textContent = txt;
@@ -4410,6 +4412,7 @@ parse_Primary(n.content)}catch(l){}a="/EncryptionInfo";n=Qe.find(e,a);if(!n||!n.
 
     function mostrarLogin() {
       document.body.classList.add('auth-locked');
+      setSyncStatus('login');
       const scr = document.getElementById('screen-login');
       if (scr) scr.classList.add('active');
       const u = document.getElementById('headerUserBadge');
@@ -9778,7 +9781,7 @@ parse_Primary(n.content)}catch(l){}a="/EncryptionInfo";n=Qe.find(e,a);if(!n||!n.
 
       // ===== Inicialização: login (Supabase) ou modo local =====
       (async () => {
-        setSyncStatus(USE_SUPABASE ? 'salvando' : 'local');
+        setSyncStatus(USE_SUPABASE ? 'conectando' : 'local');
         if (!USE_SUPABASE) {
           const aviso = document.getElementById('localModeNotice');
           if (aviso) aviso.style.display = '';
